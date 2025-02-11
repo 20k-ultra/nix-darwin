@@ -8,7 +8,10 @@
   programs.home-manager.enable = true;
 
   # Import Firefox configuration
-  imports = [ ./firefox ];
+  imports = [ 
+    ./firefox 
+    ./nodejs
+  ];
 
   programs.zsh = {
     enable = true;
