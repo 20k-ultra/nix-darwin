@@ -43,6 +43,8 @@
 
   home.packages = with pkgs; [
     git
+    google-cloud-sdk
+    gnumake
     tree
     discord
     gnupg
