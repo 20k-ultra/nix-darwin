@@ -31,6 +31,11 @@
       gs      = "git status";
       dotfiles = "cd ~/.config/nix";
     };
+
+    initExtra = ''
+      # Enable case-insensitive completion
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+    '';
   };
 
   programs.git = {
