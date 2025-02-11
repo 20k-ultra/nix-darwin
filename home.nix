@@ -37,7 +37,7 @@
     extraConfig = {
       gpg.format = "ssh";
       commit.gpgsign = true;
-      user.signingkey = "~/.ssh/id_ed25519.pub";
+      user.signingkey = "~/.ssh/id_ed25519";
     };
   };
 
