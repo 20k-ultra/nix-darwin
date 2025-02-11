@@ -36,7 +36,7 @@
     userEmail = "3946250+20k-ultra@users.noreply.github.com";
     extraConfig = {
       gpg.format = "ssh";
-      commit.gpgsign = true;
+      commit.gpgsign = false;
       user.signingkey = "~/.ssh/id_ed25519";
     };
   };
