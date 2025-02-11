@@ -13,6 +13,11 @@
     ./nodejs
   ];
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -35,6 +40,8 @@
     initExtra = ''
       # Enable case-insensitive completion
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+      eval "$(direnv hook zsh)"
     '';
   };
 
