@@ -1,3 +1,6 @@
+# nix-darwin
+
+```
 #0 - Change hostname
 
 #0.1 - Remove items from dock
@@ -27,3 +30,4 @@ nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch 
 
 #5 any updates you make after can be applied with just 
 darwin-rebuild switch --flake ~/.config/nix
+```
