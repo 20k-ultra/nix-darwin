@@ -1,5 +1,7 @@
 # nix-darwin
 
+hi 
+
 ```
 #0 - Change hostname
 
