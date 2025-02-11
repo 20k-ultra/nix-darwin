@@ -1,6 +1,15 @@
 # nix-darwin
 
-hi 
+    wezterm
+    neovim
+    amethyst
+    nvm (node)
+    shellcheck
+
+not automated
+    cleanshot
+    tailscale
+    orbstack
 
 ```
 #0 - Change hostname
