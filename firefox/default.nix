@@ -16,6 +16,7 @@
         "browser.startup.homepage" = "about:blank";
         "browser.ctrlTab.sortByRecentlyUsed" = true;
         "browser.startup.page" = 0;
+        "dom.security.https_only_mode" = true;
       };
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
