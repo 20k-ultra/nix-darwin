@@ -46,6 +46,8 @@
     tree
     discord
     gnupg
+    jq
+    btop
   ];
 
   home.sessionVariables = {
