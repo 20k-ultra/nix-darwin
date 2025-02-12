@@ -13,6 +13,7 @@
     ./nodejs
     ./zsh
     ./wezterm
+    ./nvim
   ];
 
   programs.git = {
@@ -36,10 +37,6 @@
     jq
     btop
   ];
-
-  home.sessionVariables = {
-    EDITOR = "vim";
-  };
 
   home.stateVersion = "23.05";
 }
