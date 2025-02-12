@@ -7,6 +7,17 @@
     nix-direnv.enable = true;
   };
 
+  home.file.".curl-format".text = ''
+     time_namelookup:  %{time_namelookup}s\n
+        time_connect:  %{time_connect}s\n
+     time_appconnect:  %{time_appconnect}s\n
+    time_pretransfer:  %{time_pretransfer}s\n
+       time_redirect:  %{time_redirect}s\n
+  time_starttransfer:  %{time_starttransfer}s\n
+                     ----------\n
+          time_total:  %{time_total}s\n
+  '';
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -44,6 +55,14 @@
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
       eval "$(direnv hook zsh)"
+
+      # Set the curl format file path
+      export CURL_TIMED_FORMAT="$HOME/.curl-format"
+
+      # Add the timed_curl function
+      timed_curl() {
+          curl -w "@$CURL_TIMED_FORMAT" -o /dev/null -s "$1"
+      }
 
       note() {
           # Set the EDITOR environment variable to your preferred text editor
