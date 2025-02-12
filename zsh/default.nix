@@ -12,6 +12,11 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    oh-my-zsh = {
+      enable = true;
+      theme = "alanpeabody";
+    };
+
     plugins = [
       # Vi keybindings
       {
@@ -24,7 +29,7 @@
     shellAliases = rec {
       gs      = "git status";
       dotfiles = "cd ~/.config/nix";
-      railway-local ="RAILWAY_ENV=dev ~/Projects/cli/target/release/railway";
+      railway-local = "RAILWAY_ENV=dev ~/Projects/cli/target/release/railway";
     };
 
     initExtra = ''
