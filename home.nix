@@ -12,6 +12,7 @@
     ./firefox 
     ./nodejs
     ./zsh
+    ./wezterm
   ];
 
   programs.git = {
