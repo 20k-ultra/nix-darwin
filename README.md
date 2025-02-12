@@ -5,12 +5,6 @@
     amethyst
     shellcheck
 
-not automated
-    cleanshot
-    tailscale
-    orbstack
-    lima (cuz railway wants specific version)
-
 ```
 #0 - Change hostname
 
