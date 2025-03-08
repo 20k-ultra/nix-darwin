@@ -12,7 +12,7 @@
     ./firefox 
     ./nodejs
     ./zsh
-    ./wezterm
+    ./alacritty
     ./nvim
   ];
 
