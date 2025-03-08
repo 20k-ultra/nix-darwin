@@ -4,41 +4,26 @@
     TERMINAL = "alacritty";
   };
   
-  # Install Alacritty package
   home.packages = with pkgs; [
     alacritty
   ];
   
-  # Configure Alacritty with settings similar to WezTerm
   programs.alacritty = {
     enable = true;
     
     settings = {
-      # Font configuration
       font = {
-        size = 40.0;
-        normal.family = "monospace";
+        size = 22.0;
       };
       
-      # Disable ligatures (equivalent to harfbuzz_features disabling ligatures)
-      font_features = {
-        "*" = {
-          calt = false;
-          clig = false;
-          liga = false;
-        };
-      };
-      
-      # Window settings
       window = {
-        opacity = 0.9;
+        opacity = 0.95;
         padding = {
           x = 0;
           y = 0;
         };
       };
       
-      # Custom colors similar to your Sonokai theme
       colors = {
         primary = {
           background = "#1B1D1E";
@@ -74,13 +59,12 @@
         };
       };
       
-      # Shell integration
-      shell = {
-        program = "${pkgs.zsh}/bin/zsh";
+      terminal = {
+        shell = {
+          program = "${pkgs.zsh}/bin/zsh";
+        };
       };
       
-      # Hide decorations (tabs equivalent)
-      window.decorations = "none";
     };
   };
 }
