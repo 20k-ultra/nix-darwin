@@ -86,17 +86,6 @@
         };
       }
       
-      # Close current buffer
-      {
-        mode = "n";
-        key = "<leader>bd";
-        action = ":bdelete<CR>";
-        options = {
-          silent = true;
-          desc = "Close current buffer";
-        };
-      }
-      
       # Close all buffers except current
       {
         mode = "n";
@@ -251,6 +240,26 @@
         action = "<C-w>l";
         options = {
           desc = "Go to right window";
+        };
+      }
+
+      {
+        mode = "v";
+        key = "<Tab>";
+        action = ">gv";
+        options = {
+          silent = true;
+          desc = "Indent and keep selection";
+        };
+      }
+
+      {
+        mode = "v";
+        key = "<S-Tab>";
+        action = "<gv";
+        options = {
+          silent = true;
+          desc = "Outdent and keep selection";
         };
       }
     ];

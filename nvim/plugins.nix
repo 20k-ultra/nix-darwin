@@ -36,6 +36,12 @@
         };
         # Use default key mappings
         onAttach = "default";
+        # Configure auto-following of current file with correct attribute names
+        updateFocusedFile = {
+          enable = true;
+          updateRoot = false;
+          ignoreList = [];
+        };
       };
       # Other plugins remain the same
       bufferline.enable = true;
@@ -125,6 +131,15 @@
           if client and client.server_capabilities.foldingRangeProvider then
             vim.opt_local.foldmethod = "expr"
             vim.opt_local.foldexpr = "vim.lsp.buf.folding_range()"
+          end
+        end
+      })
+      
+      -- Auto open NvimTree when starting Neovim with a directory
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          if vim.fn.isdirectory(vim.fn.argv(0)) ~= 0 then
+            require("nvim-tree.api").tree.open()
           end
         end
       })
