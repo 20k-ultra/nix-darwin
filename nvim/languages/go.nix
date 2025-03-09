@@ -18,12 +18,22 @@
         dap-go.enable = true;
       };
     };
-
-    # Add gopher.nvim for Go-specific tools
-    #gopher-nvim = {
-    #  enable = true;
-    #};
   };
+
+  # Add gopher.nvim as a custom plugin
+  extraPlugins = with pkgs.vimPlugins; [
+    # Try different possible names
+    (pkgs.vimPlugins.gopher-nvim or pkgs.vimPlugins.gopher_nvim or null)
+  ];
+
+  # Configuration for gopher.nvim
+  extraConfigLua = ''
+    -- Check if gopher is available before setting it up
+    local ok, gopher = pcall(require, "gopher")
+    if ok then
+      gopher.setup()
+    end
+  '';
 
   # Install necessary Go tools
   extraPackages = with pkgs; [
@@ -42,3 +52,4 @@
     impl
   ];
 }
+

@@ -11,7 +11,38 @@
           desc = "Toggle file explorer";
         };
       }
-      
+
+      # LSP diagnostics pop up
+      {
+        mode = "n";
+        key = "gl";
+        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+        options = {
+          silent = true;
+          desc = "Show diagnostics in floating window";
+        };
+      }
+
+      {
+        mode = "n";
+        key = "gi";
+        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
+        options = {
+          silent = true;
+          desc = "Go to implementation";
+        };
+      }
+
+      {
+        mode = "n";
+        key = "gd";
+        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+        options = {
+          silent = true;
+          desc = "Go to definition";
+        };
+      }
+
       # Focus file explorer
       {
         mode = "n";
