@@ -6,5 +6,6 @@
     ./languages/go.nix
     ./languages/bash.nix
     ./languages/nix.nix
+    ./languages/rust.nix
   ];
 }

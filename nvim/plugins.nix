@@ -50,6 +50,7 @@
       treesitter = {
         enable = true;
         ensureInstalled = [ "lua" "nix" "bash" "markdown" "json" ];
+        folding = true;
       };
       
       # Enhanced completion configuration
@@ -111,6 +112,22 @@
       
       -- Configure automatic completion
       vim.opt.updatetime = 300
+
+      -- Configure folding
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.opt.foldlevelstart = 99  -- Start with all folds open
+      
+      -- Ensure folding works with LSP
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client and client.server_capabilities.foldingRangeProvider then
+            vim.opt_local.foldmethod = "expr"
+            vim.opt_local.foldexpr = "vim.lsp.buf.folding_range()"
+          end
+        end
+      })
     '';
     
     # Extra packages to install with Neovim
