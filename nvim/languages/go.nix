@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   plugins = {
     # Add Go to treesitter
-    treesitter.ensureInstalled = [ "go" ];
+    treesitter.settings.ensure_installed = [ "go" ];
 
     # Configure LSP for Go
     lsp.servers.gopls = {
@@ -12,12 +12,8 @@
     };
 
     # Add nvim-dap support for Go
-    dap = {
-      enable = true;
-      extensions = {
-        dap-go.enable = true;
-      };
-    };
+    dap.enable = true;
+    dap-go.enable = true;  # Fixed: moved from dap.extensions.dap-go to top-level
   };
 
   # Add gopher.nvim as a custom plugin
@@ -52,4 +48,3 @@
     impl
   ];
 }
-

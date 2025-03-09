@@ -4,7 +4,7 @@
     # Main colorscheme
     colorschemes.tokyonight = {
       enable = true;
-      style = "storm";
+      settings.style = "storm";  # Fixed: changed style to settings.style
     };
     plugins = {
       # Web devicons for file icons - more explicit configuration
@@ -46,10 +46,10 @@
       #};
       gitsigns.enable = true;
       nvim-autopairs.enable = true;
-      comment-nvim.enable = true;
+      comment.enable = true;  # Fixed: changed from comment-nvim.enable to comment.enable
       treesitter = {
         enable = true;
-        ensureInstalled = [ "lua" "nix" "bash" "markdown" "json" ];
+        settings.ensure_installed = [ "lua" "nix" "bash" "markdown" "json" ];
         folding = true;
       };
       
@@ -137,4 +137,3 @@
     ];
   };
 }
-

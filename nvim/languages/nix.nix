@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   plugins = {
     # Add Nix to treesitter
-    treesitter.ensureInstalled = [ "nix" ];
+    treesitter.settings.ensure_installed = [ "nix" ];
 
     # Configure LSP for Nix
     lsp.servers.nil_ls = {

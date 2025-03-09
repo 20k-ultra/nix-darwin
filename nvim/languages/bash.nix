@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   plugins = {
     # Add Bash to treesitter for better syntax highlighting
-    treesitter.ensureInstalled = [ "bash" ];
+    treesitter.settings.ensure_installed = [ "bash" ];
 
     # Configure LSP for Bash
     lsp.servers.bashls = {
@@ -24,15 +24,17 @@
     # Configure formatter for shfmt
     conform-nvim = {
       enable = true;
-      formatters = {
-        shfmt = {
-          command = "${pkgs.shfmt}/bin/shfmt";
-          args = ["-i" "2" "-ci"];
+      settings = {  # Added settings namespace
+        formatters = {  # Moved under settings
+          shfmt = {
+            command = "${pkgs.shfmt}/bin/shfmt";
+            args = ["-i" "2" "-ci"];
+          };
         };
-      };
-      formattersByFt = {
-        sh = [ "shfmt" ];
-        bash = [ "shfmt" ];
+        formatters_by_ft = {  # Renamed from formattersByFt to formatters_by_ft and moved under settings
+          sh = [ "shfmt" ];
+          bash = [ "shfmt" ];
+        };
       };
     };
   };

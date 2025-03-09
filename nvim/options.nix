@@ -5,7 +5,7 @@
     globals.mapleader = " ";
 
     # Basic options
-    options = {
+    opts = {  # Fixed: renamed from options to opts
       number = true;         # Show line numbers
       relativenumber = true; # Show relative line numbers
       shiftwidth = 2;        # Number of spaces to use for each indentation step
