@@ -33,6 +33,8 @@
               git = true;
             };
           };
+          indentWidth = 2;
+          specialFiles = ["README.md" "Makefile" "MAKEFILE" "go.mod" "cargo.toml"];
         };
         # Use default key mappings
         onAttach = "default";
@@ -46,10 +48,9 @@
       # Other plugins remain the same
       bufferline.enable = true;
       telescope.enable = true;
-      #lualine = {
-      #  enable = true;
-      #  icons_enabled = true;  # Explicitly enable icons
-      #};
+      lualine = {
+        enable = true;
+      };
       gitsigns.enable = true;
       nvim-autopairs.enable = true;
       comment.enable = true;  # Fixed: changed from comment-nvim.enable to comment.enable
