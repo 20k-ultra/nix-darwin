@@ -1,18 +1,25 @@
 {pkgs, ...}: {
   # Use explicit config attribute for all configuration
   config = {
-    # Main colorscheme
-    colorschemes.tokyonight = {
-      enable = true;
-      settings.style = "storm";  # Fixed: changed style to settings.style
-    };
+    colorscheme = "sonokai";
+    
+    extraPlugins = [
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "sonokai";
+        src = pkgs.fetchFromGitHub {
+          owner = "20k-ultra";
+          repo = "sonokai";
+          rev = "master";
+          sha256 = "sha256-qROaZx0kIYVT8yCrTmK0cVDw9LPVCS1J1GslUc2ZrP0=";
+        };
+      })
+    ];
+
     plugins = {
-      # Web devicons for file icons - more explicit configuration
-      web-devicons = {
-        enable = true;
-        # default = true;
-      };
-      # File explorer with explicit icon settings
+      # Web devicons for file icons
+      web-devicons.enable = true;
+      
+      # File explorer configuration
       nvim-tree = {
         enable = true;
         filters.dotfiles = false;
@@ -20,9 +27,7 @@
           width = 30;
           side = "left";
         };
-        git = {
-          enable = true;
-        };
+        git.enable = true;
         renderer = {
           highlightGit = true;
           indentMarkers.enable = true;
@@ -36,31 +41,48 @@
           indentWidth = 2;
           specialFiles = ["README.md" "Makefile" "MAKEFILE" "go.mod" "cargo.toml"];
         };
-        # Use default key mappings
         onAttach = "default";
-        # Configure auto-following of current file with correct attribute names
         updateFocusedFile = {
           enable = true;
           updateRoot = false;
           ignoreList = [];
         };
       };
-      # Other plugins remain the same
-      bufferline.enable = true;
-      telescope.enable = true;
-      lualine = {
+      
+      # Other UI plugins
+      bufferline = {
         enable = true;
+        settings = {
+          options = {
+            show_buffer_icons = false;      # Remove file type icons
+            show_buffer_close_icons = false; # Remove the "x" on each buffer
+            show_close_icon = false;        # Remove the close button at the end
+            buffer_close_icon = "";         # Make buffer close icon empty (backup)
+            close_icon = "";                # Make close icon empty (backup)
+            modified_icon = "";             # Remove the modified indicator
+          };
+        };
       };
+      telescope.enable = true;
+      lualine.enable = false;
       gitsigns.enable = true;
       nvim-autopairs.enable = true;
-      comment.enable = true;  # Fixed: changed from comment-nvim.enable to comment.enable
+      comment.enable = true;
+      
+      # Treesitter configuration
       treesitter = {
         enable = true;
-        settings.ensure_installed = [ "lua" "nix" "bash" "markdown" "json" ];
+        settings = {
+          ensure_installed = [ "lua" "nix" "bash" "markdown" "json" ];
+          highlight = {
+            enable = true;
+            additional_vim_regex_highlighting = false;
+          };
+        };
         folding = true;
       };
       
-      # Enhanced completion configuration
+      # Completion configuration
       cmp = {
         enable = true;
         settings = {
@@ -85,9 +107,9 @@
         };
       };
       
-      # Additional completion plugins
-      lspkind.enable = true;  # For nice icons in completion menu
-      luasnip.enable = true;  # For snippets in completion
+      # LSP support plugins
+      lspkind.enable = true;
+      luasnip.enable = true;
       cmp-nvim-lsp.enable = true;
       cmp-buffer.enable = true;
       cmp-path.enable = true;
@@ -101,15 +123,25 @@
       };
     };
     
-    # More comprehensive configuration for icons and completion
+    # Improved Lua configuration
     extraConfigLua = ''
-      -- Ensure UTF-8 encoding
+      -- UTF-8 encoding
       vim.opt.encoding = "UTF-8"
       
-      -- Explicitly set that we have a nerd font
+      -- Nerd font setting
       vim.g.have_nerd_font = true
       
-      -- Basic web-devicons setup
+      -- Sonokai theme configuration
+      vim.g.sonokai_style = 'default'  -- Options: default, atlantis, andromeda, shusia, maia, espresso
+      vim.g.sonokai_better_performance = 1
+      vim.g.sonokai_enable_italic = 1
+      vim.g.sonokai_disable_italic_comment = 0
+      vim.g.sonokai_transparent_background = 0
+      vim.g.sonokai_current_word = 'bold'  -- Make current word stand out
+      vim.g.sonokai_diagnostic_line_highlight = 1
+      vim.g.sonokai_diagnostic_virtual_text = 'colored'
+      
+      -- Web devicons setup
       require('nvim-web-devicons').setup {
         default = true
       }
@@ -118,25 +150,44 @@
       vim.opt.completeopt = {"menu", "menuone", "noselect"}
       
       -- Configure automatic completion
-      vim.opt.updatetime = 300
+      vim.opt.updatetime = 250
+      
+      -- Better syntax highlighting with treesitter
+      require('nvim-treesitter.configs').setup {
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      }
 
-      -- Configure folding
+      -- Folding configuration
       vim.opt.foldmethod = "expr"
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
       vim.opt.foldlevelstart = 99  -- Start with all folds open
       
-      -- Ensure folding works with LSP
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client and client.server_capabilities.foldingRangeProvider then
-            vim.opt_local.foldmethod = "expr"
-            vim.opt_local.foldexpr = "vim.lsp.buf.folding_range()"
+      -- Fix folding issues with LSP
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "*",
+        callback = function()
+          if vim.bo.filetype == "go" then
+            -- Ensure folding is properly set for Go files
+            vim.opt_local.foldmethod = "expr" 
+            vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
           end
         end
       })
       
-      -- Auto open NvimTree when starting Neovim with a directory
+      -- Force treesitter to use semantic tokens from LSP
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client and client.server_capabilities.semanticTokensProvider then
+            vim.lsp.semantic_tokens.start(vim.api.nvim_get_current_buf(), client.id)
+          end
+        end
+      })
+      
+      -- Auto open NvimTree with directories
       vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
           if vim.fn.isdirectory(vim.fn.argv(0)) ~= 0 then
@@ -146,7 +197,7 @@
       })
     '';
     
-    # Extra packages to install with Neovim
+    # Extra packages to install
     extraPackages = with pkgs; [
       ripgrep
       fd

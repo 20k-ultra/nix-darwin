@@ -1,35 +1,37 @@
 { pkgs, ... }: {
   plugins = {
     # Add Go to treesitter
-    treesitter.settings.ensure_installed = [ "go" ];
+    treesitter = {
+      enable = true;
+      settings = {
+        ensure_installed = [ "go" ];
+        highlight = {
+          enable = true;
+          additional_vim_regex_highlighting = false;
+        };
+      };
+    };
 
     # Configure LSP for Go
     lsp.servers.gopls = {
       enable = true;
       settings = {
-        gofumpt = true;  # Use gofumpt for formatting
+        gofumpt = true;
+        analyses = {
+          unusedparams = true;
+          shadow = true;
+        };
+        staticcheck = true;
+        usePlaceholders = true;
+        completeUnimported = true;
+        semanticTokens = true;  # Important for better syntax highlighting
       };
     };
 
     # Add nvim-dap support for Go
     dap.enable = true;
-    dap-go.enable = true;  # Fixed: moved from dap.extensions.dap-go to top-level
+    dap-go.enable = true;
   };
-
-  # Add gopher.nvim as a custom plugin
-  extraPlugins = with pkgs.vimPlugins; [
-    # Try different possible names
-    (pkgs.vimPlugins.gopher-nvim or pkgs.vimPlugins.gopher_nvim or null)
-  ];
-
-  # Configuration for gopher.nvim
-  extraConfigLua = ''
-    -- Check if gopher is available before setting it up
-    local ok, gopher = pcall(require, "gopher")
-    if ok then
-      gopher.setup()
-    end
-  '';
 
   # Install necessary Go tools
   extraPackages = with pkgs; [
@@ -37,14 +39,15 @@
     go
 
     # Go tools
-    gopls  # Language server
-    golangci-lint  # Linter
+    gopls
+    golangci-lint
     
     # Additional Go tools
-    gotools  # Contains goimports
+    gotools
     gomodifytags
     gotests
     iferr
     impl
+    delve  # Debugger
   ];
 }
