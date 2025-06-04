@@ -33,6 +33,17 @@
         };
       }
 
+      # Show interface implementations 
+      {
+        mode = "n";
+        key = "gI";
+        action = ":Telescope lsp_implementations<CR>";
+        options = {
+          silent = true;
+          desc = "List implementations";
+        };
+      }
+
       {
         mode = "n";
         key = "gd";
@@ -40,6 +51,17 @@
         options = {
           silent = true;
           desc = "Go to definition";
+        };
+      }
+
+      # Show references
+      {
+        mode = "n";
+        key = "gr";
+        action = ":Telescope lsp_references<CR>";
+        options = {
+          silent = true;
+          desc = "Show references";
         };
       }
 
@@ -287,4 +309,3 @@
     ];
   };
 }
-
