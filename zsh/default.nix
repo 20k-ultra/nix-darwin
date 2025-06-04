@@ -51,6 +51,10 @@
     };
 
     initExtra = ''
+      # Set EDITOR and VISUAL environment variables
+      export EDITOR="nvim"
+      export VISUAL="nvim"
+      
       # Enable case-insensitive completion
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
