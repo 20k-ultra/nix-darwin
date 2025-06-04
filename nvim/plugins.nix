@@ -249,37 +249,90 @@
        })
 
       -- Bufferline color customization for a more subtle active buffer
-       vim.api.nvim_create_autocmd("ColorScheme", {
-         callback = function()
-           -- Set more subtle bufferline colors
-           vim.api.nvim_set_hl(0, "BufferLineTabSelected", {
-             bg = "#2D2E32", -- Slightly darker than background
-             fg = "#F8F8F2", -- Normal foreground
-             bold = true
-           })
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          local colors = {
+            active_bg = "#2D2E32",
+            inactive_bg = "#1B1D1E", 
+            active_fg = "#F8F8F2",
+            inactive_fg = "#6C6C6C",
+            modified_fg = "#FF6E67"
+          }
+
+          -- Main tab highlights
+          vim.api.nvim_set_hl(0, "BufferLineTabSelected", {
+            bg = colors.active_bg,
+            fg = colors.active_fg,
+            bold = true
+          })
           
-           vim.api.nvim_set_hl(0, "BufferLineBackground", {
-             bg = "#1B1D1E", -- Match your terminal background
-             fg = "#6C6C6C" -- Dimmer text for inactive buffers
-           })
+          vim.api.nvim_set_hl(0, "BufferLineTab", {
+            bg = colors.inactive_bg,
+            fg = colors.inactive_fg
+          })
+
+          vim.api.nvim_set_hl(0, "BufferLineBackground", {
+            bg = colors.inactive_bg,
+            fg = colors.inactive_fg
+          })
+
+          -- Modified buffer highlights - ensure all variants match their tab backgrounds
+          vim.api.nvim_set_hl(0, "BufferLineModified", {
+            bg = colors.inactive_bg,
+            fg = colors.modified_fg
+          })
           
-           vim.api.nvim_set_hl(0, "BufferLineModified", {
-             bg = "#1B1D1E",
-             fg = "#FF6E67" -- Subtle red for modified indicator
-           })
-          
-           vim.api.nvim_set_hl(0, "BufferLineModifiedSelected", {
-             bg = "#2D2E32",
-             fg = "#FF6E67" -- Red for active modified buffer
-           })
-          
-           -- Remove separator styling for cleaner look
-           vim.api.nvim_set_hl(0, "BufferLineSeparator", {
-             bg = "#1B1D1E",
-             fg = "#1B1D1E"
-           })
-         end
-       })
+          vim.api.nvim_set_hl(0, "BufferLineModifiedSelected", {
+            bg = colors.active_bg,  -- This should match BufferLineTabSelected
+            fg = colors.modified_fg,
+            bold = true
+          })
+
+          vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", {
+            bg = colors.inactive_bg,
+            fg = colors.modified_fg
+          })
+
+          -- Buffer text highlights
+          vim.api.nvim_set_hl(0, "BufferLineBufferSelected", {
+            bg = colors.active_bg,
+            fg = colors.active_fg,
+            bold = true
+          })
+
+          vim.api.nvim_set_hl(0, "BufferLineBufferVisible", {
+            bg = colors.inactive_bg,
+            fg = colors.inactive_fg
+          })
+
+          -- Separator highlights
+          vim.api.nvim_set_hl(0, "BufferLineSeparator", {
+            bg = colors.inactive_bg,
+            fg = colors.inactive_bg
+          })
+
+          vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", {
+            bg = colors.active_bg,
+            fg = colors.active_bg
+          })
+
+          vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", {
+            bg = colors.inactive_bg,
+            fg = colors.inactive_bg
+          })
+
+          -- Additional highlight groups that might affect rendering
+          vim.api.nvim_set_hl(0, "BufferLineFill", {
+            bg = colors.inactive_bg,
+            fg = colors.inactive_fg
+          })
+
+          vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", {
+            bg = colors.active_bg,
+            fg = colors.active_bg
+          })
+        end
+      })
 
        -- Apply colors immediately after colorscheme loads
        vim.defer_fn(function()
