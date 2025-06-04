@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   config = {
     keymaps = [
       # File explorer toggle
@@ -75,7 +75,7 @@
           desc = "Focus file explorer";
         };
       }
-      
+
       # Find file in NvimTree
       {
         mode = "n";
@@ -86,7 +86,7 @@
           desc = "Find current file in explorer";
         };
       }
-      
+
       # Buffer navigation
       {
         mode = "n";
@@ -97,7 +97,7 @@
           desc = "Go to next buffer";
         };
       }
-      
+
       {
         mode = "n";
         key = "<S-h>";
@@ -107,7 +107,7 @@
           desc = "Go to previous buffer";
         };
       }
-      
+
       # Close all buffers except current
       {
         mode = "n";
@@ -118,7 +118,7 @@
           desc = "Close all buffers except current";
         };
       }
-      
+
       # Find files
       {
         mode = "n";
@@ -129,7 +129,7 @@
           desc = "Find files";
         };
       }
-      
+
       # Live grep (search for text)
       {
         mode = "n";
@@ -140,7 +140,7 @@
           desc = "Live grep";
         };
       }
-      
+
       # Browse files
       {
         mode = "n";
@@ -151,7 +151,7 @@
           desc = "Browse files";
         };
       }
-      
+
       # Search current buffer
       {
         mode = "n";
@@ -167,7 +167,7 @@
       {
         mode = "n";
         key = "<leader>c";
-        action = ":bdelete<CR>";
+        action = "<cmd>lua smart_close_buffer()<CR>";
         options = {
           silent = true;
           desc = "Close current buffer";
@@ -195,7 +195,7 @@
           desc = "Toggle comment line";
         };
       }
-      
+
       # Toggle comment for selection (visual mode)
       {
         mode = "v";
@@ -217,7 +217,7 @@
           desc = "Git status";
         };
       }
-      
+
       # Remove search highlighting
       {
         mode = "n";
@@ -228,7 +228,7 @@
           desc = "Clear search highlight";
         };
       }
-      
+
       # Split window management
       {
         mode = "n";
@@ -239,7 +239,7 @@
           desc = "Split vertically";
         };
       }
-      
+
       {
         mode = "n";
         key = "<leader>sh";
@@ -249,7 +249,7 @@
           desc = "Split horizontally";
         };
       }
-      
+
       # Better window navigation
       {
         mode = "n";
@@ -259,7 +259,7 @@
           desc = "Go to left window";
         };
       }
-      
+
       {
         mode = "n";
         key = "<C-j>";
@@ -268,7 +268,7 @@
           desc = "Go to lower window";
         };
       }
-      
+
       {
         mode = "n";
         key = "<C-k>";
@@ -277,7 +277,7 @@
           desc = "Go to upper window";
         };
       }
-      
+
       {
         mode = "n";
         key = "<C-l>";
