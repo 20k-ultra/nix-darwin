@@ -4,7 +4,8 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     [ pkgs.vim
-      pkgs.discord  # Add Discord to system packages
+      pkgs.discord
+      pkgs.go
     ];
 
   # Necessary for using flakes on this system.
@@ -17,7 +18,7 @@
     name = "applications";
     paths = [ 
       pkgs.firefox-dev 
-      pkgs.discord  # Add Discord to the applications paths
+      pkgs.discord
     ];
     pathsToLink = "/Applications";
   });

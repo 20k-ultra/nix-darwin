@@ -162,7 +162,29 @@
           desc = "Recent files";
         };
       }
+
+      # Toggle comment for current line (normal mode)
+      {
+        mode = "n";
+        key = "<leader>/";
+        action = "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>";
+        options = {
+          silent = true;
+          desc = "Toggle comment line";
+        };
+      }
       
+      # Toggle comment for selection (visual mode)
+      {
+        mode = "v";
+        key = "<leader>/";
+        action = "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>";
+        options = {
+          silent = true;
+          desc = "Toggle comment selection";
+        };
+      }
+
       # Git status
       {
         mode = "n";

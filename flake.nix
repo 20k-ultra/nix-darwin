@@ -37,6 +37,7 @@
         home-manager.darwinModules.home-manager
         {
           nixpkgs.config.allowUnfree = true;
+          nixpkgs.config.allowBroken = true;
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.mig = { pkgs, ... }: {

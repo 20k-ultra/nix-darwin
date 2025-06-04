@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  # Use explicit config attribute for all configuration
   config = {
     colorscheme = "sonokai";
     
@@ -64,7 +63,7 @@
         };
       };
       telescope.enable = true;
-      lualine.enable = false;
+      lualine.enable = true;
       gitsigns.enable = true;
       nvim-autopairs.enable = true;
       comment.enable = true;
