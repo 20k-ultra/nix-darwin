@@ -10,9 +10,8 @@
   ];
 
   # Extra packages needed by various plugins
-  config.extraPackages = with pkgs; [
+  extraPackages = with pkgs; [
     ripgrep
     fd
   ];
 }
-

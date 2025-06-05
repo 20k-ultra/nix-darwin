@@ -1,5 +1,5 @@
 { ... }: {
-  config.plugins = {
+  plugins = {
     lsp = {
       enable = true;
       servers = {
@@ -9,7 +9,7 @@
     };
   };
 
-  config.extraConfigLua = ''
+  extraConfigLua = ''
     -- Force treesitter to use semantic tokens from LSP
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
@@ -21,3 +21,4 @@
     })
   '';
 }
+

@@ -1,61 +1,40 @@
 { pkgs, ... }: {
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [
-      pkgs.vim
-      pkgs.discord
-      pkgs.go
-    ];
+    # Add any aliases you want
+    shellAliases = {
+      ll = "ls -la";
+      la = "ls -la";
+      ".." = "cd ..";
+      "..." = "cd ../..";
 
-  # Disable nix-darwin's Nix management since we're using Determinate
-  nix.enable = false;
+      # Nix aliases
+      rebuild = "darwin-rebuild switch --flake ~/.config/nix";
 
-  # Enable alternative shell support in nix-darwin.
-  programs.zsh.enable = true;
-
-  # Set primary user for system defaults
-  system.primaryUser = "mig";
-
-  system.build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
-    name = "applications";
-    paths = [
-      pkgs.firefox-devedition # Use standard Firefox Developer Edition
-      pkgs.discord
-    ];
-    pathsToLink = "/Applications";
-  });
-
-  # Dock and Mission Control settings
-  system.defaults = {
-    dock = {
-      autohide = true; # Automatically hide the Dock
-      mru-spaces = false; # Prevent automatic rearrangement of spaces
+      # Git aliases
+      gs = "git status";
+      ga = "git add";
+      gc = "git commit";
+      gp = "git push";
+      gl = "git log --oneline";
     };
-    NSGlobalDomain = {
-      # Disable natural scrolling
-      "com.apple.swipescrolldirection" = false;
-    };
-    trackpad = {
-      # Enable tap-to-click
-      Clicking = true;
-    };
-    finder = {
-      AppleShowAllExtensions = true;
-    };
-  };
 
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
-  system.stateVersion = 6;
+    # History configuration
+    history = {
+      size = 10000;
+      path = "$HOME/.zsh_history";
+    };
 
-  # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "aarch64-darwin";
-
-  users.users.mig = {
-    name = "mig";
-    home = "/Users/mig";
+    # Oh My Zsh configuration (optional)
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "sudo" "docker" "kubectl" ];
+      theme = "robbyrussell";
+    };
   };
 }
 

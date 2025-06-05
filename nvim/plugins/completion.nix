@@ -1,5 +1,5 @@
 { ... }: {
-  config.plugins = {
+  plugins = {
     # Completion configuration
     cmp = {
       enable = true;
@@ -33,7 +33,7 @@
     cmp-path.enable = true;
   };
 
-  config.extraConfigLua = ''
+  extraConfigLua = ''
     -- Set completion options
     vim.opt.completeopt = {"menu", "menuone", "noselect"}
 
@@ -41,3 +41,4 @@
     vim.opt.updatetime = 250
   '';
 }
+

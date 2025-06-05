@@ -1,5 +1,5 @@
 { ... }: {
-  config.plugins = {
+  plugins = {
     # Web devicons for file icons
     web-devicons.enable = true;
 
@@ -34,7 +34,7 @@
     };
   };
 
-  config.extraConfigLua = ''
+  extraConfigLua = ''
     -- Web devicons setup
     require('nvim-web-devicons').setup {
       default = true
@@ -50,3 +50,4 @@
     })
   '';
 }
+

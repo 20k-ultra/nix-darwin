@@ -1,5 +1,5 @@
 { ... }: {
-  config.plugins = {
+  plugins = {
     # Treesitter configuration
     treesitter = {
       enable = true;
@@ -14,7 +14,7 @@
     };
   };
 
-  config.extraConfigLua = ''
+  extraConfigLua = ''
     -- Better syntax highlighting with treesitter
     require('nvim-treesitter.configs').setup {
       highlight = {
@@ -41,3 +41,4 @@
     })
   '';
 }
+

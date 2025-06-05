@@ -1,5 +1,5 @@
 { ... }: {
-  config.plugins = {
+  plugins = {
     # Bufferline configuration
     bufferline = {
       enable = true;
@@ -26,7 +26,7 @@
     comment.enable = true;
   };
 
-  config.extraConfigLua = ''
+  extraConfigLua = ''
     -- Bufferline color customization for a more subtle active buffer
     vim.api.nvim_create_autocmd("ColorScheme", {
       callback = function()
@@ -66,3 +66,4 @@
     end, 100)
   '';
 }
+

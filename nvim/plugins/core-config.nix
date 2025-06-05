@@ -1,5 +1,5 @@
 { ... }: {
-  config.extraConfigLua = ''
+  extraConfigLua = ''
     -- Smart buffer close function that prevents focus moving to nvim-tree
     -- and closes editor when no buffers remain
     local function smart_close_buffer()
@@ -57,3 +57,4 @@
     vim.g.have_nerd_font = true
   '';
 }
+
