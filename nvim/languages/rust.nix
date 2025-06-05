@@ -6,8 +6,7 @@
     # Configure rustaceanvim
     rustaceanvim = {
       enable = true;
-      # Use the rust-analyzer package from nixpkgs
-      rustAnalyzerPackage = pkgs.rust-analyzer;
+      # Removed rustAnalyzerPackage as it no longer exists
       # Configure rustaceanvim settings
       settings = {
         server = {
@@ -69,19 +68,20 @@
     # Rust and cargo
     rustc
     cargo
-    
+
     # Language server and linters
     rust-analyzer
     clippy
     rustfmt
-    
+
     # Debug adapter
     lldb
-    
+
     # Additional Rust tools
-    cargo-edit     # Cargo subcommands to add/remove/upgrade dependencies
-    cargo-watch    # Watch for changes and run cargo commands
-    cargo-audit    # Security audit for Cargo.lock
-    cargo-expand   # Shows result of macro expansion
+    cargo-edit # Cargo subcommands to add/remove/upgrade dependencies
+    cargo-watch # Watch for changes and run cargo commands
+    cargo-audit # Security audit for Cargo.lock
+    cargo-expand # Shows result of macro expansion
   ];
 }
+

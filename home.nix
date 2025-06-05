@@ -1,15 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   home.username = "mig";
   home.homeDirectory = "/Users/mig";
-  
+
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 
   # Import configurations
-  imports = [ 
-    ./firefox 
+  imports = [
+    ./firefox
     ./nodejs
     ./zsh
     ./alacritty
@@ -36,7 +36,9 @@
     gnupg
     jq
     btop
+    k9s
   ];
 
   home.stateVersion = "23.05";
 }
+

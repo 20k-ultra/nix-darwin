@@ -20,14 +20,6 @@
   outputs = inputs@{ nixpkgs, home-manager, darwin, nur, nixvim, flake-parts, ... }:
     let
       system = "aarch64-darwin";
-
-      # Create custom neovim package
-      nvim-pkg = nixvim.legacyPackages.${system}.makeNixvimWithModule {
-        pkgs = nixpkgs.legacyPackages.${system};
-        module = import ./nvim;
-        # Add any extra arguments your modules might need
-        extraSpecialArgs = { };
-      };
     in
     {
       darwinConfigurations."ghost-m3" = darwin.lib.darwinSystem {
@@ -40,16 +32,16 @@
             nixpkgs.config.allowBroken = true;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.sharedModules = [ inputs.nixvim.homeManagerModules.nixvim ];
             home-manager.users.mig = { pkgs, ... }: {
-              # Import your existing home-manager configuration
               imports = [
                 ./firefox
                 ./nodejs
                 ./zsh
                 ./alacritty
+                ./nvim # Import nixvim configuration as module
               ];
 
-              # Your other home-manager configurations
               programs.git = {
                 enable = true;
                 userName = "20k-ultra";
@@ -70,26 +62,19 @@
                 gnupg
                 jq
                 btop
-                nvim-pkg
                 k9s
               ];
 
               home.stateVersion = "23.05";
             };
+
             nixpkgs.overlays = [
               inputs.nur.overlays.default
-              (final: prev: {
-                firefox-dev = prev.callPackage ./firefox/firefox-darwin.nix { };
-              })
             ];
           }
         ];
         specialArgs = { inherit inputs; };
       };
-
-      # Add a devShell to easily test your Neovim configuration
-      devShells.${system}.default = nixpkgs.legacyPackages.${system}.mkShell {
-        packages = [ nvim-pkg ];
-      };
     };
 }
+

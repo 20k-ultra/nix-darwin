@@ -3,21 +3,25 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
-    [ pkgs.vim
+    [
+      pkgs.vim
       pkgs.discord
       pkgs.go
     ];
 
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
+  # allows Determinate to handle Nix insallation
+  nix.enable = false;
 
   # Enable alternative shell support in nix-darwin.
   programs.zsh.enable = true;
-  
+
+  # Set primary user for system defaults
+  system.primaryUser = "mig";
+
   system.build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
     name = "applications";
-    paths = [ 
-      pkgs.firefox-dev 
+    paths = [
+      pkgs.firefox-devedition # Use standard Firefox Developer Edition
       pkgs.discord
     ];
     pathsToLink = "/Applications";
@@ -26,7 +30,7 @@
   # Dock and Mission Control settings
   system.defaults = {
     dock = {
-      autohide = true;  # Automatically hide the Dock
+      autohide = true; # Automatically hide the Dock
       mru-spaces = false; # Prevent automatic rearrangement of spaces
     };
     NSGlobalDomain = {
@@ -38,7 +42,7 @@
       Clicking = true;
     };
     finder = {
-      AppleShowAllExtensions = true; 
+      AppleShowAllExtensions = true;
     };
   };
 
@@ -54,3 +58,4 @@
     home = "/Users/mig";
   };
 }
+
