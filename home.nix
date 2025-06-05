@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.username = "mig";
@@ -37,8 +37,8 @@
     jq
     btop
     k9s
+    claude-code
   ];
 
   home.stateVersion = "23.05";
 }
-
