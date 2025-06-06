@@ -39,6 +39,7 @@
     k9s
     claude-code
     ripgrep
+    nghttp2
   ];
 
   home.stateVersion = "23.05";
