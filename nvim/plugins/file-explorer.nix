@@ -12,6 +12,22 @@
         side = "left";
       };
       git.enable = true;
+
+      # Enable diagnostics to show only LSP errors
+      diagnostics = {
+        enable = true;
+        showOnDirs = true;
+        showOnOpenDirs = true;
+        debounceDelay = 50;
+        severity = {
+          min = "error";
+          max = "error";
+        };
+        icons = {
+          error = "●";
+        };
+      };
+
       renderer = {
         highlightGit = true;
         indentMarkers.enable = true;
@@ -35,6 +51,13 @@
   };
 
   extraConfigLua = ''
+    -- Define diagnostic error sign for nvim-tree BEFORE loading nvim-tree
+    vim.fn.sign_define("NvimTreeDiagnosticErrorIcon", {
+      text = "●",
+      texthl = "DiagnosticError",
+      numhl = "DiagnosticError"
+    })
+
     -- Web devicons setup
     require('nvim-web-devicons').setup {
       default = true
@@ -50,4 +73,3 @@
     })
   '';
 }
-
