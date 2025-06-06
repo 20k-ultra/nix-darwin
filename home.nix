@@ -38,6 +38,7 @@
     btop
     k9s
     claude-code
+    ripgrep
   ];
 
   home.stateVersion = "23.05";
