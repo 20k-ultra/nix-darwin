@@ -3,15 +3,19 @@
   home.sessionVariables = {
     TERMINAL = "alacritty";
   };
-  
+
   home.packages = with pkgs; [
     alacritty
   ];
-  
+
   programs.alacritty = {
     enable = true;
-    
+
     settings = {
+      env = {
+        TERM = "xterm-256color";
+      };
+
       font = {
         normal = {
           family = "JetBrainsMono Nerd Font";
@@ -31,7 +35,7 @@
         };
         size = 22.0;
       };
-      
+
       window = {
         opacity = 0.95;
         padding = {
@@ -39,7 +43,7 @@
           y = 0;
         };
       };
-      
+
       colors = {
         primary = {
           background = "#1B1D1E";
@@ -74,7 +78,7 @@
           background = "#44475A";
         };
       };
-      
+
       terminal = {
         shell = {
           program = "${pkgs.zsh}/bin/zsh";
