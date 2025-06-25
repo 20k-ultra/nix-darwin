@@ -41,6 +41,8 @@
     ripgrep
     nghttp2
     websocat
+    pkg-config
+    opencv4
   ];
 
   home.stateVersion = "23.05";
