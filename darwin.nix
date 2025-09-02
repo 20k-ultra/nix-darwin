@@ -27,6 +27,32 @@
     pathsToLink = "/Applications";
   });
 
+  homebrew = {
+    enable = true;
+    onActivation = {
+      autoUpdate = false;
+      cleanup = "zap";
+      upgrade = false;
+    };
+    global = {
+      brewfile = true;
+      lockfiles = false;
+    };
+    # Example: Install casks (GUI apps)
+    casks = [
+      "amethyst"
+    ];
+    # Example: Install brews (CLI tools)
+    brews = [
+      # "wget"
+      # "htop"
+    ];
+    # Example: Add taps
+    taps = [
+      # "homebrew/services"
+    ];
+  };
+
   # Dock and Mission Control settings
   system.defaults = {
     dock = {

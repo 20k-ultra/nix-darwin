@@ -14,6 +14,7 @@
     ./zsh
     ./alacritty
     ./nvim
+    ./amethyst
   ];
 
   programs.git = {

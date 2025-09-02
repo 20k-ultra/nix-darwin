@@ -1,9 +1,6 @@
 # nix-darwin
 
-Things not installed in this repo:
-
-- amethyst
-- shellcheck
+nix files to setup a mbp
 
 ### Installation
 
