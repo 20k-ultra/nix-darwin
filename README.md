@@ -1,9 +1,11 @@
 # nix-darwin
 
-    wezterm
-    neovim
-    amethyst
-    shellcheck
+Things not installed in this repo:
+
+- amethyst
+- shellcheck
+
+### Installation
 
 ```
 #0 - Change hostname
