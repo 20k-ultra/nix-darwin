@@ -44,6 +44,7 @@
     websocat
     pkg-config
     opencv4
+    nerd-fonts.jetbrains-mono
   ];
 
   home.stateVersion = "23.05";
