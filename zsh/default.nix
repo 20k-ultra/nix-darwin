@@ -39,6 +39,8 @@
     shellAliases = rec {
       dotfiles = "cd ~/.config/nix";
       railway-local = "RAILWAY_ENV=dev ~/Projects/cli/target/release/railway";
+      railway-staging = "RAILWAY_ENV=staging ~/Projects/cli/target/release/railway";
+      railway-prod = "RAILWAY_ENV=prod ~/Projects/cli/target/release/railway";
       ls = "ls --color=auto";
       gpm = "git pull origin main";
       gpom = "git pull origin main";
