@@ -44,6 +44,7 @@
     ];
     # Example: Install brews (CLI tools)
     brews = [
+      "glow"
       # "wget"
       # "htop"
     ];
