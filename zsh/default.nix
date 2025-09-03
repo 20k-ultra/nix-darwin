@@ -52,86 +52,84 @@
     };
 
     initContent = ''
-            # Add Homebrew to PATH for Apple Silicon Macs
-            if [[ -f /opt/homebrew/bin/brew ]]; then
-              eval "$(/opt/homebrew/bin/brew shellenv)"
-            fi
+      # Add Homebrew to PATH for Apple Silicon Macs
+      if [[ -f /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
 
-            # Set EDITOR and VISUAL environment variables
-            export EDITOR="nvim"
-            export VISUAL="nvim"
-      
-            # Enable case-insensitive completion
-            zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+      # Set EDITOR and VISUAL environment variables
+      export EDITOR="nvim"
+      export VISUAL="nvim"
 
-            eval "$(direnv hook zsh)"
+      # Enable case-insensitive completion
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-            # Set the curl format file path
-            export CURL_TIMED_FORMAT="$HOME/.curl-format"
+      eval "$(direnv hook zsh)"
 
-            # Add the timed_curl function
-            timed_curl() {
-                curl -w "@$CURL_TIMED_FORMAT" -o /dev/null -s "$1"
-            }
+      # Set the curl format file path
+      export CURL_TIMED_FORMAT="$HOME/.curl-format"
 
-            note() {
-                # Set the EDITOR environment variable to your preferred text editor
-                EDITOR=''${EDITOR:-vi}
+      # Add the timed_curl function
+      timed_curl() {
+          curl -w "@$CURL_TIMED_FORMAT" -o /dev/null -s "$1"
+      }
 
-                # Set the NOTES_DIR environment variable to the directory where notes should be saved
-                NOTES_DIR=''${NOTES_DIR:-~/notes}
+      note() {
+          # Set the EDITOR environment variable to your preferred text editor
+          EDITOR=''${EDITOR:-vi}
 
-                # Set the file type for notes (so that the editor LSP can work)
-                NOTES_TYPE=''${NOTES_TYPE:-.md}
+          # Set the NOTES_DIR environment variable to the directory where notes should be saved
+          NOTES_DIR=''${NOTES_DIR:-~/notes}
 
-                # Check if the NOTES_DIR folder exists
-                if [ ! -d "$NOTES_DIR" ]
-                then
-                    # If the folder does not exist, create it
-                    mkdir "$NOTES_DIR"
-                fi
+          # Set the file type for notes (so that the editor LSP can work)
+          NOTES_TYPE=''${NOTES_TYPE:-.md}
 
-                if [ -z "$1" ]; then
-                    # If no filename is provided, create a new file with a timestamp in the name
-                    filename="note-$(date +'%Y-%m-%d_%H-%M-%S')$NOTES_TYPE"
-                else
-                    # Use the provided filename
-                    filename="$1"
-                fi
+          # Check if the NOTES_DIR folder exists
+          if [ ! -d "$NOTES_DIR" ]
+          then
+              # If the folder does not exist, create it
+              mkdir "$NOTES_DIR"
+          fi
 
-                # Open the file in the text editor
-                $EDITOR "$NOTES_DIR/$filename"
-            }
+          if [ -z "$1" ]; then
+              # If no filename is provided, create a new file with a timestamp in the name
+              filename="note-$(date +'%Y-%m-%d_%H-%M-%S')$NOTES_TYPE"
+          else
+              # Use the provided filename
+              filename="$1"
+          fi
 
-            # notes function
-            notes() {
-                # Set the NOTES_DIR environment variable to the directory where notes should be saved
-                NOTES_DIR=''${NOTES_DIR:-~/notes}
+          # Open the file in the text editor
+          $EDITOR "$NOTES_DIR/$filename"
+      }
 
-                # Set the internal field separator to a newline character
-                # so that we can loop through the output of 'ls' line by line
-                IFS=
-        };
-      }\n'
+      # notes function
+      notes() {
+          # Set the NOTES_DIR environment variable to the directory where notes should be saved
+          NOTES_DIR=''${NOTES_DIR:-~/notes}
 
-                # Print the table header
-                printf "+-------------------------------------+----------------+\n"
-                printf "|                 Note                |      Date      |\n"
-                printf "+-------------------------------------+----------------+\n"
+          # Set the internal field separator to a newline character
+          # so that we can loop through the output of 'ls' line by line
+          IFS=$'\n'
 
-                # Loop through the output of 'ls'
-                ls -tl "$NOTES_DIR" | tail -n +2 | while read -r line; do
-                    # Extract the file name and date from the line
-                    file=$(echo "$line" | awk '{print $9}')
-                    date=$(echo "$line" | awk '{print $6, $7, $8}')
+          # Print the table header
+          printf "+-------------------------------------+----------------+\n"
+          printf "|                 Note                |      Date      |\n"
+          printf "+-------------------------------------+----------------+\n"
 
-                    # Print the file name and date in a table row
-                    printf "| %-35s | %-15s|\n" "$file" "$date"
-                done
+          # Loop through the output of 'ls'
+          ls -tl "$NOTES_DIR" | tail -n +2 | while read -r line; do
+              # Extract the file name and date from the line
+              file=$(echo "$line" | awk '{print $9}')
+              date=$(echo "$line" | awk '{print $6, $7, $8}')
 
-                # Print the table footer
-                printf "+-------------------------------------+----------------+\n"
-            }
+              # Print the file name and date in a table row
+              printf "| %-35s | %-15s|\n" "$file" "$date"
+          done
+
+          # Print the table footer
+          printf "+-------------------------------------+----------------+\n"
+      }
     '';
   };
 }
