@@ -20,8 +20,8 @@
         showOnOpenDirs = true;
         debounceDelay = 50;
         severity = {
-          min = "error";
-          max = "error";
+          min = 1;  # ERROR
+          max = 1;  # ERROR
         };
         icons = {
           error = "●";
