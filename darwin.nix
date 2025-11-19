@@ -24,7 +24,7 @@
       pkgs.firefox-devedition # Use standard Firefox Developer Edition
       pkgs.discord
     ];
-    pathsToLink = "/Applications";
+    pathsToLink = [ "/Applications" ];
   });
 
   homebrew = {
