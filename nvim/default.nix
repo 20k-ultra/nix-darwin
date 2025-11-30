@@ -10,6 +10,7 @@
       ./languages/bash.nix
       ./languages/nix.nix
       ./languages/rust.nix
+      ./languages/protobuf.nix
     ];
   };
 }
